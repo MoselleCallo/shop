@@ -20,3 +20,4 @@ function imgNav(){
 
 function imgThumbnails(){
   
+}
