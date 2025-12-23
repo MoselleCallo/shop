@@ -1,29 +1,29 @@
-function webHeader() {
+function WebHeader() {
     return (
-        <header class="absolute w-full z-50 bg-white">
-            <div class="flex items-center justify-between w-full h-16 p-[25px] md:h-28 md:px-24">
-                <div class="flex gap-3 items-center">
+        <header className="absolute w-full z-50 bg-white">
+            <div className="flex items-center justify-between w-full h-16 p-[25px] md:h-28 md:px-24">
+                <div className="flex gap-3 items-center">
                     {/* Toggle Menu */}
-                    <toggleMenu />
-                    <img class="h-5" alt="logo" src="/images/logo.svg" />
+                    <ToggleMenu />
+                    <img className="h-5" alt="logo" src="/images/logo.svg" />
                 </div>
 
                 {/* Cart and User*/}
-                <div class="flex justify-end gap-3 items-center">
+                <div className="flex justify-end gap-3 items-center">
                     <img alt="cart" src="/images/icon-cart.svg" />
-                    <img class="h-8 w-8" alt="user" src="/images/image-avatar.png" />
+                    <img className="h-8 w-8" alt="user" src="/images/image-avatar.png" />
                 </div>
             </div>
 
             {/* HR Line */}
-            <div class="hidden md:block px-24 mb-20">
-                <hr class="border-t-1 border-gray-400" />
+            <div className="hidden md:block px-24 mb-20">
+                <hr className="border-t-1 border-gray-400" />
             </div>
         </header>
     );
 }
 
-function toggleMenu() {
+function ToggleMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
 
     return (
@@ -31,21 +31,21 @@ function toggleMenu() {
             <div>
                 {isOpen ? (
                     <img
-                class="h-4 md:hidden cursor-pointer" alt="menu" src="/images/icon-menu.svg"
+                className="h-4 md:hidden cursor-pointer" alt="menu" src="/images/icon-menu.svg"
                 onClick={() => setIsOpen(!isOpen)}/>
                 ) : (
                     <img
-                class="h-4 md:hidden cursor-pointer" alt="menu" src="/images/icon-close.svg"
+                className="h-4 md:hidden cursor-pointer" alt="menu" src="/images/icon-close.svg"
                 onClick={() => setIsOpen(isOpen)}/>
                 )}
             </div>
             
-            <ul class={`absolute h-full w-2/3 top-0 pt-36 px-12 ${isOpen ? "block" : "hidden"}`}>
-                <li class="py-4 text-gray-900">Collections</li>
-                <li class="py-4 text-gray-900">Men</li>
-                <li class="py-4 text-gray-900">Women</li>
-                <li class="py-4 text-gray-900">About</li>
-                <li class="py-4 text-gray-900">Contact</li>
+            <ul className={`absolute h-full w-2/3 top-0 pt-36 px-12 ${isOpen ? "block" : "hidden"}`}>
+                <li className="py-4 text-gray-900">Collections</li>
+                <li className="py-4 text-gray-900">Men</li>
+                <li className="py-4 text-gray-900">Women</li>
+                <li className="py-4 text-gray-900">About</li>
+                <li className="py-4 text-gray-900">Contact</li>
             </ul>
         </>
     );
@@ -72,9 +72,11 @@ function imgThumbnails() {
 function App() {
     return (
         <>
-            <webHeader />
+            <WebHeader />
         </>
     );
 }
 
-ReactDOM.render(<App />, document,getElementById("root"));
+const html = document.getElementById("root");
+const root = createRoot(html);
+root.render(<App />);
