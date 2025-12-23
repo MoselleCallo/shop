@@ -25,23 +25,26 @@ function WebHeader() {
 
 function ToggleMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
+    
+    function toggle() {
+        setIsOpen(!isOpen);
+    }
 
     return (
         <>
-            <div>
-                {isOpen ? (
-                    <img
-                className="h-4 md:hidden cursor-pointer" alt="menu" src="/images/icon-menu.svg"
-                onClick={() => setIsOpen(!isOpen)}/>
-                ) : (
-                    <img
-                className="h-4 md:hidden cursor-pointer" alt="menu" src="/images/icon-close.svg"
-                onClick={() => setIsOpen(isOpen)}/>
-                )}
-            </div>
+            <button className="z-50 md:hidden cursor-pointer"
+            onClick={toggle}>
             
-            <ul className={`absolute h-full w-2/3 top-0 pt-36 px-12 ${isOpen ? "block" : "hidden"}`}>
-                <li className="py-4 text-gray-900">Collections</li>
+            <img
+                className="h-4"
+                alt={isOpen ? "close" : "menu"} 
+                src={isOpen ? 
+                "/images/icon-close.svg" : 
+                "/images/icon-menu.svg"}/>
+                </button>
+            
+            <ul className={`absolute h-screen w-2/3 top-0 left-0 pt-16 px-[25px] bg-white ${isOpen ? "block" : "hidden"}`}>
+                <li className="py-4 text-gray-900 font-bold">Collections</li>
                 <li className="py-4 text-gray-900">Men</li>
                 <li className="py-4 text-gray-900">Women</li>
                 <li className="py-4 text-gray-900">About</li>
@@ -77,6 +80,4 @@ function App() {
     );
 }
 
-const html = document.getElementById("root");
-const root = createRoot(html);
-root.render(<App />);
+ReactDOM.render(<App />, document.getElementById("root"));
