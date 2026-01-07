@@ -24,7 +24,6 @@ function WebHeader() {
 }
 
 function ToggleMenu() {
-    const menuItem = styled.div ``
     const [isOpen, setIsOpen] = React.useState(false);
 
     function toggle() {
@@ -65,17 +64,58 @@ function ToggleMenu() {
     );
 }
 
-function cart() {
+function AddToCart() {
 
 }
 
-function imgMain() {
+function Gallery() {
+    const images = [
+        { src: 'image-product-1.jpg', alt: 'product image' },
+        { src: 'image-product-2.jpg', alt: 'product image' },
+        { src: 'image-product-3.jpg', alt: 'product image' },
+    ];
+
+    let index = 0;
+    let img = images[index];
+
+    function imgPrev() {
+        if (index < img.length) {
+            index = img.lastIndexOf;
+        }
+        index--;
+    }
+
+    function imgNext() {
+        if (index > img.length) {
+            index = 0;
+        }
+        index++;
+    }
+
+    return (
+        <>
+        <div className="relative items-center">
+            <img alt="product image 1" src="/images/image-product-1.jpg" />
+            <hr>
+                <div className="w-full absolute p-5 flex justify-between top-1/2 -translate-y-1/2">
+                    <button className="z-50" onclick={ imgPrev }> 
+                        <img className="bg-white rounded-full p-3" alt="previous" src="/images/icon-previous.svg" />
+                    </button>
+
+                    <button className="z-50" onclick={ imgNext }>
+                        <img className="bg-white rounded-full p-3" alt="next" src="/images/icon-next.svg" />
+                    </button>
+                </div>
+        </div>
+        </>
+    );
+}
+
+function ProductDesc() {
 
 }
 
-function imgNav() {
 
-}
 
 function imgThumbnails() {
 
@@ -87,6 +127,15 @@ function App() {
     return (
         <>
             <WebHeader />
+            <ToggleMenu />
+
+            <div className="md:px-24">
+                <main className="pt-16 md:pt-28">
+                    <Gallery />
+                    <ProductDesc />
+                    <AddToCart />
+                </main>
+            </div>
         </>
     );
 }
