@@ -24,8 +24,9 @@ function WebHeader() {
 }
 
 function ToggleMenu() {
+    const menuItem = styled.div ``
     const [isOpen, setIsOpen] = React.useState(false);
-    
+
     function toggle() {
         setIsOpen(!isOpen);
     }
@@ -33,22 +34,32 @@ function ToggleMenu() {
     return (
         <>
             <button className="z-50 md:hidden cursor-pointer"
-            onClick={toggle}>
-            
-            <img
-                className="h-4"
-                alt={isOpen ? "close" : "menu"} 
-                src={isOpen ? 
-                "/images/icon-close.svg" : 
-                "/images/icon-menu.svg"}/>
-                </button>
-            
+                onClick={toggle}>
+
+                <img
+                    className="h-4 mt-4"
+                    alt={isOpen ? "close" : "menu"}
+                    src={isOpen ?
+                        "/images/icon-close.svg" :
+                        "/images/icon-menu.svg"} />
+            </button>
+
             <ul className={`absolute h-screen w-2/3 top-0 left-0 pt-16 px-[25px] bg-white ${isOpen ? "block" : "hidden"}`}>
-                <li className="py-4 text-gray-900 font-bold">Collections</li>
-                <li className="py-4 text-gray-900">Men</li>
-                <li className="py-4 text-gray-900">Women</li>
-                <li className="py-4 text-gray-900">About</li>
-                <li className="py-4 text-gray-900">Contact</li>
+                <li className="py-4 text-gray-900 font-bold">
+                    <a href="/"> Collections </a>
+                </li>
+                <li className="py-4 text-gray-900">
+                    <a href="/"> Men </a>
+                </li>
+                <li className="py-4 text-gray-900">
+                    <a href="/"> Women </a>
+                </li>
+                <li className="py-4 text-gray-900">
+                    <a href="/"> About </a>
+                </li>
+                <li className="py-4 text-gray-900">
+                    <a href="/"> Contact </a>
+                </li>
             </ul>
         </>
     );
