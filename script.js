@@ -64,7 +64,26 @@ function ToggleMenu() {
 }
 
 function AddToCart() {
+    return (
+        <>
+            <div className="mt-7 px-5 py-4 bg-gray-50 flex justify-between items-center rounded-md">
+                <button className="">
+                    <img src="/images/icon-minus.svg" alt="minus" className="" />
+                </button>
 
+                <p className="">0</p>
+
+                <button className="">
+                    <img src="/images/icon-plus.svg" alt="plus" className="" />
+                </button>
+            </div>
+
+            <button className="mt-4 mb-20 w-full flex items-center justify-center gap-2 bg-orange-500 font-bold p-4 rounded-md shadow-xl shadow-orange-500/50">
+                <img src="/images/icon-cart.svg" alt="Cart" className="color-black" />
+                <span>Add to cart</span>
+            </button>
+        </>
+    );
 }
 
 function Gallery() {
@@ -78,41 +97,75 @@ function Gallery() {
 
     function imgPrev() {
         setIndex(index - 1);
+
+        if (index < 0)
+            setIndex(myImages.lastIndexOf); // return to last image
     }
 
     function imgNext() {
         setIndex(index + 1);
-        
+
+        if (index > myImages.length)
+            setIndex(0); // return to first image
     }
 
     let myImg = myImages[index];
     return (
         <>
-        <div className="relative items-center">
+            <div className="relative items-center">
                 <div className="w-full absolute p-5 flex justify-between top-1/2 -translate-y-1/2">
-                    <button className="z-50" onClick={ imgPrev }> 
+                    <button className="z-50" onClick={imgPrev}>
                         <img className="bg-white rounded-full p-3" alt="previous" src="/images/icon-previous.svg" />
                     </button>
 
-                    <button className="z-50" onClick={ imgNext }>
+                    <button className="z-50" onClick={imgNext}>
                         <img className="bg-white rounded-full p-3" alt="next" src="/images/icon-next.svg" />
                     </button>
                 </div>
-                
-                <img alt={ myImg.alt } src={ myImg.src } />
-        </div>
+
+                <img alt={myImg.alt} src={myImg.src} />
+            </div>
         </>
     );
 }
 
 function ProductDesc() {
+    return (
+        <>
+            <div className="mx-[25px]">
+                <div className="my-5">
+                    <p className="pb-2 text-gray-500 text-xs tracking-[2px] font-black uppercase">Sneaker Company</p>
+                    <h2 className="py-1 text-gray-900 text-3xl font-bold">Fall Limited Edition Sneakers</h2>
+                    <p className="pt-3 text-gray-500 font-gray-400">These low-profile sneakers are your perfect casual wear companion. Featuring a
+                        durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
+                </div>
 
+                <div className="flex my-7 items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <h2 className="text-3xl font-bold text-gray-900">$125.00</h2>
+                        <p className="px-2 bg-gray-900 font-bold text-white rounded-md">50%</p>
+
+                    </div>
+                    <p className="text-gray-500 font-bold line-through">$250.00</p>
+                </div>
+            </div>
+        </>
+    );
 }
-
-
 
 function imgThumbnails() {
 
+}
+
+function WebFooter() {
+    return (
+        <>
+            <div className="attribution">
+                Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+                Coded by <a href="#">Callo, Moselle</a>.
+            </div>
+        </>
+    )
 }
 
 
@@ -130,6 +183,8 @@ function App() {
                     <AddToCart />
                 </main>
             </div>
+
+            <WebFooter />
         </>
     );
 }
