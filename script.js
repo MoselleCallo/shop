@@ -29,14 +29,13 @@ function ToggleMenu() {
     function toggle() {
         setIsOpen(!isOpen);
     }
-
     return (
         <>
             <button className="z-50 md:hidden cursor-pointer"
                 onClick={toggle}>
 
                 <img
-                    className="h-4 mt-4"
+                    className="h-4 mt-[5px]"
                     alt={isOpen ? "close" : "menu"}
                     src={isOpen ?
                         "/images/icon-close.svg" :
@@ -69,43 +68,38 @@ function AddToCart() {
 }
 
 function Gallery() {
-    const images = [
-        { src: 'image-product-1.jpg', alt: 'product image' },
-        { src: 'image-product-2.jpg', alt: 'product image' },
-        { src: 'image-product-3.jpg', alt: 'product image' },
+    const myImages = [
+        { src: '/images/image-product-1.jpg', alt: 'product image' },
+        { src: '/images/image-product-2.jpg', alt: 'product image' },
+        { src: '/images/image-product-3.jpg', alt: 'product image' },
     ];
 
-    let index = 0;
-    let img = images[index];
+    const [index, setIndex] = React.useState(0);
 
     function imgPrev() {
-        if (index < img.length) {
-            index = img.lastIndexOf;
-        }
-        index--;
+        setIndex(index - 1);
     }
 
     function imgNext() {
-        if (index > img.length) {
-            index = 0;
-        }
-        index++;
+        setIndex(index + 1);
+        
     }
 
+    let myImg = myImages[index];
     return (
         <>
         <div className="relative items-center">
-            <img alt="product image 1" src="/images/image-product-1.jpg" />
-            <hr>
                 <div className="w-full absolute p-5 flex justify-between top-1/2 -translate-y-1/2">
-                    <button className="z-50" onclick={ imgPrev }> 
+                    <button className="z-50" onClick={ imgPrev }> 
                         <img className="bg-white rounded-full p-3" alt="previous" src="/images/icon-previous.svg" />
                     </button>
 
-                    <button className="z-50" onclick={ imgNext }>
+                    <button className="z-50" onClick={ imgNext }>
                         <img className="bg-white rounded-full p-3" alt="next" src="/images/icon-next.svg" />
                     </button>
                 </div>
+                
+                <img alt={ myImg.alt } src={ myImg.src } />
         </div>
         </>
     );
@@ -130,7 +124,7 @@ function App() {
             <ToggleMenu />
 
             <div className="md:px-24">
-                <main className="pt-16 md:pt-28">
+                <main className="pt-8 md:pt-28">
                     <Gallery />
                     <ProductDesc />
                     <AddToCart />
