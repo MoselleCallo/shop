@@ -71,15 +71,13 @@ function AddToCart() {
     let hasMinus = index > 0;
 
     function minus() {
-        if (!hasMinus){
+        if (hasMinus){
             setIndex(index - 1);
         }
     }
 
     function plus() {
-        if (hasNext){
             setIndex(index + 1);
-        }
     }
 
     function addToCart() {
@@ -93,7 +91,7 @@ function AddToCart() {
                     <img src="/images/icon-minus.svg" alt="minus" className="" />
                 </button>
 
-                <p className="">${index}</p>
+                <p className="">{index}</p>
 
                 <button className="" onClick={plus}>
                     <img src="/images/icon-plus.svg" alt="plus" className="" />
