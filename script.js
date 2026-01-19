@@ -29,6 +29,7 @@ function ToggleMenu() {
     function toggle() {
         setIsOpen(!isOpen);
     }
+
     return (
         <>
             <button className="z-50 md:hidden cursor-pointer"
@@ -64,16 +65,37 @@ function ToggleMenu() {
 }
 
 function AddToCart() {
+    //Add to cart
+    const [index, setIndex] = React.useState(0);
+
+    let hasMinus = index > 0;
+
+    function minus() {
+        if (!hasMinus){
+            setIndex(index - 1);
+        }
+    }
+
+    function plus() {
+        if (hasNext){
+            setIndex(index + 1);
+        }
+    }
+
+    function addToCart() {
+
+    }
+
     return (
         <div className="mx-[25px]">
             <div className="mt-7 px-5 py-4 bg-gray-50 flex justify-between items-center rounded-md">
-                <button className="">
+                <button className="" onClick={minus} disabled={!hasMinus}>
                     <img src="/images/icon-minus.svg" alt="minus" className="" />
                 </button>
 
-                <p className="">0</p>
+                <p className="">${index}</p>
 
-                <button className="">
+                <button className="" onClick={plus}>
                     <img src="/images/icon-plus.svg" alt="plus" className="" />
                 </button>
             </div>
@@ -86,6 +108,32 @@ function AddToCart() {
     );
 }
 
+//Basket
+    function cart() {
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    function toggle() {
+        setIsOpen(!isOpen);
+    }
+
+    function notif() {
+        return(
+            <>
+                <p></p>
+            </>
+        );
+    }
+
+    return(
+        <>
+            <div className="mt-24 mx-8 rounded-md">
+                if (index === 0)
+
+            </div>
+        </>
+    );
+}
+
 function Gallery() {
     const myImages = [
         { src: '/images/image-product-1.jpg', alt: 'product image' },
@@ -94,35 +142,33 @@ function Gallery() {
     ];
 
     const [index, setIndex] = React.useState(0);
+    
+    let hasPrev = index > 0;
+    let hasNext = index < myImages.length - 1;
 
     function imgPrev() {
-        setIndex(index - 1);
-
-        if (index < 0)
-            setIndex(myImages.length); // return to last image
+        if (hasPrev){
+            setIndex(index - 1);
+        }
     }
 
     function imgNext() {
-        if (index === myImages.length)
-            setIndex(0); // return to first image
-        else {
+        if (hasNext){
             setIndex(index + 1);
         }
-        
-        
-        alert(`index is ${index}`);
     }
 
     let myImg = myImages[index];
+
     return (
         <>
             <div className="relative items-center">
                 <div className="w-full absolute p-5 flex justify-between top-1/2 -translate-y-1/2">
-                    <button className="z-50" onClick={imgPrev}>
+                    <button className="z-50" onClick={imgPrev} disabled={!hasPrev}>
                         <img className="bg-white rounded-full p-3" alt="previous" src="/images/icon-previous.svg" />
                     </button>
 
-                    <button className="z-50" onClick={imgNext}>
+                    <button className="z-50" onClick={imgNext} disabled={!hasNext}>
                         <img className="bg-white rounded-full p-3" alt="next" src="/images/icon-next.svg" />
                     </button>
                 </div>
@@ -157,7 +203,7 @@ function ProductDesc() {
     );
 }
 
-function imgThumbnails() {
+function ImgThumbnails() {
 
 }
 
