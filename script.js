@@ -1,4 +1,18 @@
-function WebHeader() {
+function WebHeader({ cart }) {
+    function cartIcon() {
+        const [isOpen, setIsOpen] = React.useState(false);
+
+        function toggle() {
+            setIsOpen(!isOpen);
+        }
+        
+        if (isOpen) {
+            <span>
+                {cart.length}
+            </span>
+        }
+    }
+
     return (
         <header className="absolute w-full z-50 bg-white">
             <div className="flex items-center justify-between w-full h-16 p-[25px] md:h-28 md:px-24">
@@ -65,23 +79,34 @@ function ToggleMenu() {
 }
 
 function AddToCart() {
-    //Add to cart
-    const [index, setIndex] = React.useState(0);
+    const product =
+    {
+        id: 1,
+        name: 'Shoes',
+        price: '$125.00',
+        src: '/images/image-product-1.jpg',
+        alt: 'Product Image'
+    };
 
-    let hasMinus = index > 0;
+    const [cart, setCart] = React.useState([]);
+
+    function add() {
+        setCart([...cart, product]);
+    }
+
+    //Add to cart
+    const [count, setCount] = React.useState(0);
+
+    let hasMinus = count > 0;
 
     function minus() {
-        if (hasMinus){
-            setIndex(index - 1);
+        if (hasMinus) {
+            setCount(count - 1);
         }
     }
 
     function plus() {
-            setIndex(index + 1);
-    }
-
-    function addToCart() {
-
+        setCount(count + 1);
     }
 
     return (
@@ -91,14 +116,16 @@ function AddToCart() {
                     <img src="/images/icon-minus.svg" alt="minus" className="" />
                 </button>
 
-                <p className="">{index}</p>
+                <p className="">{count}</p>
 
                 <button className="" onClick={plus}>
                     <img src="/images/icon-plus.svg" alt="plus" className="" />
                 </button>
             </div>
 
-            <button className="mt-4 mb-20 w-full flex items-center justify-center gap-2 bg-orange-500 font-bold p-4 rounded-md shadow-xl shadow-orange-500/50">
+            <button className="mt-4 mb-20 w-full flex items-center justify-center gap-2 bg-orange-500 font-bold p-4 rounded-md shadow-xl shadow-orange-500/50"
+                onClick={() => add(product)}
+            >
                 <img src="/images/icon-cart.svg" alt="Cart" className="color-black" />
                 <span>Add to cart</span>
             </button>
@@ -106,31 +133,47 @@ function AddToCart() {
     );
 }
 
-//Basket
-    function cart() {
-    const [isOpen, setIsOpen] = React.useState(false);
-
-    function toggle() {
-        setIsOpen(!isOpen);
-    }
-
-    function notif() {
-        return(
-            <>
-                <p></p>
-            </>
-        );
-    }
-
-    return(
+function Basket({ cart, count }) {
+    return (
         <>
-            <div className="mt-24 mx-8 rounded-md">
-                if (index === 0)
+            <div className="mt=24 mx-8">
+                <h1 className="p-4">Cart</h1>
 
+                <hr className="pt-4" />
+
+                {cart.length === 0 ?
+                    (<p className="justify-center items-center">Your cart is empty</p>)
+                    :
+                    (
+                        cart.map((item, index) => (
+                            <div>
+                                <div className="">
+                                    <img src={item.src} alt={item.alt} className="" key={index} />
+
+                                    <div className="">
+                                        <p className="" key={index}>
+                                            {item.name}
+                                            <br />
+                                            {item.price} x {count}
+                                        </p>
+
+                                        <p className="">
+                                            {item.price * count}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button className="mt-4 mb-20 w-full flex items-center justify-center bg-orange-500 font-bold p-4 rounded-md">
+                                    Checkout
+                                </button>
+                            </div>
+                        ))
+                    )
+                }
             </div>
         </>
-    );
-}
+    )
+};
 
 function Gallery() {
     const myImages = [
@@ -140,18 +183,18 @@ function Gallery() {
     ];
 
     const [index, setIndex] = React.useState(0);
-    
+
     let hasPrev = index > 0;
     let hasNext = index < myImages.length - 1;
 
     function imgPrev() {
-        if (hasPrev){
+        if (hasPrev) {
             setIndex(index - 1);
         }
     }
 
     function imgNext() {
-        if (hasNext){
+        if (hasNext) {
             setIndex(index + 1);
         }
     }
