@@ -65,7 +65,7 @@ function ToggleMenu() {
 
 function AddToCart() {
     return (
-        <>
+        <div className="mx-[25px]">
             <div className="mt-7 px-5 py-4 bg-gray-50 flex justify-between items-center rounded-md">
                 <button className="">
                     <img src="/images/icon-minus.svg" alt="minus" className="" />
@@ -82,7 +82,7 @@ function AddToCart() {
                 <img src="/images/icon-cart.svg" alt="Cart" className="color-black" />
                 <span>Add to cart</span>
             </button>
-        </>
+        </div>
     );
 }
 
@@ -99,14 +99,18 @@ function Gallery() {
         setIndex(index - 1);
 
         if (index < 0)
-            setIndex(myImages.lastIndexOf); // return to last image
+            setIndex(myImages.length); // return to last image
     }
 
     function imgNext() {
-        setIndex(index + 1);
-
-        if (index > myImages.length)
+        if (index === myImages.length)
             setIndex(0); // return to first image
+        else {
+            setIndex(index + 1);
+        }
+        
+        
+        alert(`index is ${index}`);
     }
 
     let myImg = myImages[index];
