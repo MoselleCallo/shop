@@ -1,18 +1,4 @@
-function WebHeader({ cart }) {
-    function cartIcon() {
-        const [isOpen, setIsOpen] = React.useState(false);
-
-        function toggle() {
-            setIsOpen(!isOpen);
-        }
-        
-        if (isOpen) {
-            <span>
-                {cart.length}
-            </span>
-        }
-    }
-
+function WebHeader() {
     return (
         <header className="absolute w-full z-50 bg-white">
             <div className="flex items-center justify-between w-full h-16 p-[25px] md:h-28 md:px-24">
@@ -24,7 +10,7 @@ function WebHeader({ cart }) {
 
                 {/* Cart and User*/}
                 <div className="flex justify-end gap-3 items-center">
-                    <img alt="cart" src="/images/icon-cart.svg" />
+                    <CartIcon />
                     <img className="h-8 w-8" alt="user" src="/images/image-avatar.png" />
                 </div>
             </div>
@@ -78,65 +64,20 @@ function ToggleMenu() {
     );
 }
 
-function AddToCart() {
-    const product =
-    {
-        id: 1,
-        name: 'Shoes',
-        price: '$125.00',
-        src: '/images/image-product-1.jpg',
-        alt: 'Product Image'
-    };
+function CartIcon({ cart, count }) {
+    const [isOpen, setIsOpen] = React.useState(false);
 
-    const [cart, setCart] = React.useState([]);
-
-    function add() {
-        setCart([...cart, product]);
+    function toggle() {
+        setIsOpen(!isOpen);
     }
 
-    //Add to cart
-    const [count, setCount] = React.useState(0);
-
-    let hasMinus = count > 0;
-
-    function minus() {
-        if (hasMinus) {
-            setCount(count - 1);
-        }
-    }
-
-    function plus() {
-        setCount(count + 1);
-    }
-
-    return (
-        <div className="mx-[25px]">
-            <div className="mt-7 px-5 py-4 bg-gray-50 flex justify-between items-center rounded-md">
-                <button className="" onClick={minus} disabled={!hasMinus}>
-                    <img src="/images/icon-minus.svg" alt="minus" className="" />
-                </button>
-
-                <p className="">{count}</p>
-
-                <button className="" onClick={plus}>
-                    <img src="/images/icon-plus.svg" alt="plus" className="" />
-                </button>
-            </div>
-
-            <button className="mt-4 mb-20 w-full flex items-center justify-center gap-2 bg-orange-500 font-bold p-4 rounded-md shadow-xl shadow-orange-500/50"
-                onClick={() => add(product)}
-            >
-                <img src="/images/icon-cart.svg" alt="Cart" className="color-black" />
-                <span>Add to cart</span>
-            </button>
-        </div>
-    );
-}
-
-function Basket({ cart, count }) {
     return (
         <>
-            <div className="mt=24 mx-8">
+            <button className="z-50 cursor-pointer" onClick={toggle}>
+                <img alt="cart" src="/images/icon-cart.svg" />
+            </button>
+
+            <div className={`absolute w-full mt=24 mx-8 ${isOpen ? "block" : "hidden"}`}>
                 <h1 className="p-4">Cart</h1>
 
                 <hr className="pt-4" />
@@ -161,6 +102,10 @@ function Basket({ cart, count }) {
                                             {item.price * count}
                                         </p>
                                     </div>
+
+                                    <span>
+                                        {cart.length}
+                                    </span>
                                 </div>
 
                                 <button className="mt-4 mb-20 w-full flex items-center justify-center bg-orange-500 font-bold p-4 rounded-md">
@@ -172,8 +117,8 @@ function Basket({ cart, count }) {
                 }
             </div>
         </>
-    )
-};
+    );
+}
 
 function Gallery() {
     const myImages = [
@@ -246,6 +191,61 @@ function ProductDesc() {
 
 function ImgThumbnails() {
 
+}
+
+function AddToCart() {
+    const product =
+    {
+        id: 1,
+        name: 'Shoes',
+        price: '$125.00',
+        src: '/images/image-product-1.jpg',
+        alt: 'Product Image'
+    };
+
+    const [cart, setCart] = React.useState([]);
+
+    function add() {
+        setCart([...cart, product]);
+    }
+
+    //Add to cart
+    const [count, setCount] = React.useState(0);
+
+    let hasMinus = count > 0;
+
+    function minus() {
+        if (hasMinus) {
+            setCount(count - 1);
+        }
+    }
+
+    function plus() {
+        setCount(count + 1);
+    }
+
+    return (
+        <div className="mx-[25px]">
+            <div className="mt-7 px-5 py-4 bg-gray-50 flex justify-between items-center rounded-md">
+                <button className="" onClick={minus} disabled={!hasMinus}>
+                    <img src="/images/icon-minus.svg" alt="minus" className="" />
+                </button>
+
+                <p className="">{count}</p>
+
+                <button className="" onClick={plus}>
+                    <img src="/images/icon-plus.svg" alt="plus" className="" />
+                </button>
+            </div>
+
+            <button className="mt-4 mb-20 w-full flex items-center justify-center gap-2 bg-orange-500 font-bold p-4 rounded-md shadow-xl shadow-orange-500/50"
+                onClick={() => add(product)}
+            >
+                <img src="/images/icon-cart.svg" alt="Cart" className="color-black" />
+                <span>Add to cart</span>
+            </button>
+        </div>
+    );
 }
 
 function WebFooter() {
