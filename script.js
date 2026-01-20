@@ -1,6 +1,6 @@
 function WebHeader() {
     return (
-        <header className="absolute w-full z-50 bg-white">
+        <header className="fixed w-full z-50 bg-white">
             <div className="flex items-center justify-between w-full h-16 p-[25px] md:h-28 md:px-24">
                 <div className="flex gap-3 items-center">
                     {/* Toggle Menu */}
@@ -25,11 +25,11 @@ function WebHeader() {
 
 function ToggleMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
-
+    
     function toggle() {
         setIsOpen(!isOpen);
     }
-
+    
     return (
         <>
             <button className="z-50 md:hidden cursor-pointer"
@@ -66,29 +66,28 @@ function ToggleMenu() {
 
 function CartIcon({ cart, count }) {
     const [isOpen, setIsOpen] = React.useState(false);
-
+    
     function toggle() {
         setIsOpen(!isOpen);
     }
-
+    
     return (
         <>
             <button className="z-50 cursor-pointer" onClick={toggle}>
                 <img alt="cart" src="/images/icon-cart.svg" />
             </button>
 
-            <div className={`absolute w-full mt=24 mx-8 ${isOpen ? "block" : "hidden"}`}>
-                <h1 className="p-4">Cart</h1>
+            <div className={`fixed w-80 max-h-60 top-20 left-4 rounded-md bg-white ${isOpen ? "block" : "hidden"}`}>
+                <h1 className="p-4 font-bold">Cart</h1>
 
                 <hr className="pt-4" />
-
-                {cart.length === 0 ?
-                    (<p className="justify-center items-center">Your cart is empty</p>)
-                    :
-                    (
-                        cart.map((item, index) => (
-                            <div>
-                                <div className="">
+                
+                <div className="align-center">
+                    {cart.length === 0 ?
+                (<p className="text-center text-gray-500">Your cart is empty</p>) :
+                (cart.map((item, index) => (
+                <div>
+                                <div className="flex">
                                     <img src={item.src} alt={item.alt} className="" key={index} />
 
                                     <div className="">
@@ -102,19 +101,17 @@ function CartIcon({ cart, count }) {
                                             {item.price * count}
                                         </p>
                                     </div>
-
-                                    <span>
-                                        {cart.length}
-                                    </span>
-                                </div>
+                </div>
 
                                 <button className="mt-4 mb-20 w-full flex items-center justify-center bg-orange-500 font-bold p-4 rounded-md">
                                     Checkout
                                 </button>
                             </div>
-                        ))
-                    )
-                }
+            ))
+        )
+}
+</div>
+                    
             </div>
         </>
     );
@@ -126,26 +123,26 @@ function Gallery() {
         { src: '/images/image-product-2.jpg', alt: 'product image' },
         { src: '/images/image-product-3.jpg', alt: 'product image' },
     ];
-
+    
     const [index, setIndex] = React.useState(0);
-
+    
     let hasPrev = index > 0;
     let hasNext = index < myImages.length - 1;
-
+    
     function imgPrev() {
         if (hasPrev) {
             setIndex(index - 1);
         }
     }
-
+    
     function imgNext() {
         if (hasNext) {
             setIndex(index + 1);
         }
     }
-
+    
     let myImg = myImages[index];
-
+    
     return (
         <>
             <div className="relative items-center">
@@ -190,40 +187,39 @@ function ProductDesc() {
 }
 
 function ImgThumbnails() {
-
+    
 }
 
 function AddToCart() {
-    const product =
-    {
+    const product = {
         id: 1,
         name: 'Shoes',
         price: '$125.00',
         src: '/images/image-product-1.jpg',
         alt: 'Product Image'
     };
-
+    
     const [cart, setCart] = React.useState([]);
-
+    
     function add() {
         setCart([...cart, product]);
     }
-
+    
     //Add to cart
     const [count, setCount] = React.useState(0);
-
+    
     let hasMinus = count > 0;
-
+    
     function minus() {
         if (hasMinus) {
             setCount(count - 1);
         }
     }
-
+    
     function plus() {
         setCount(count + 1);
     }
-
+    
     return (
         <div className="mx-[25px]">
             <div className="mt-7 px-5 py-4 bg-gray-50 flex justify-between items-center rounded-md">
