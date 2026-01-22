@@ -1,4 +1,4 @@
-function WebHeader({cart, count}) {
+function WebHeader({cart, count, isOpen, setIsOpen}) {
     return (
         <header className="fixed w-full z-50 bg-white">
             <div className="flex items-center justify-between w-full h-16 p-[25px] md:h-28 md:px-24">
@@ -10,7 +10,7 @@ function WebHeader({cart, count}) {
 
                 {/* Cart and User*/}
                 <div className="flex justify-end gap-3 items-center">
-                    <CartIcon cart={cart} count={count}/>
+                    <CartIcon cart={cart} count={count} isOpen={isOpen} setIsOpen={setIsOpen} />
                     <img className="h-8 w-8" alt="user" src="/images/image-avatar.png" />
                 </div>
             </div>
@@ -64,8 +64,8 @@ function ToggleMenu() {
     );
 }
 
-function CartIcon({ cart, count }) {
-    const [isOpen, setIsOpen] = React.useState(false);
+function CartIcon({ cart, count, isOpen, setIsOpen }) {
+    
 
     function toggle() {
         setIsOpen(!isOpen);
@@ -190,7 +190,7 @@ function ImgThumbnails() {
 
 }
 
-function AddToCart() { // parent  of cart and count
+function AddToCart({cart, setCart}) { // ADDING ITEMS
     const product = {
         id: 1,
         name: 'Shoes',
@@ -198,8 +198,6 @@ function AddToCart() { // parent  of cart and count
         src: '/images/image-product-1.jpg',
         alt: 'Product Image'
     };
-
-    const [cart, setCart] = React.useState([]);
 
     function add() {
         setCart([...cart, product]);
@@ -258,16 +256,20 @@ function WebFooter() {
 
 // App rendering
 function App({cart, count}) {
+    const [cart, setCart] = React.useState([]);
+    const [isOpen, setIsOpen] = React.useState(false);
+
+
     return (
         <>
-            <WebHeader cart={cart} count={count}/>
+            <WebHeader cart={cart} count={count} isOpen={isOpen} setIsOpen={setIsOpen} />
             <ToggleMenu />
 
             <div className="md:px-24">
                 <main className="pt-8 md:pt-28">
                     <Gallery />
                     <ProductDesc />
-                    <AddToCart />
+                    <AddToCart cart={cart} setCart={setCart} />
                 </main>
             </div>
 
