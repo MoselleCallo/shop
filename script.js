@@ -1,4 +1,4 @@
-function WebHeader({cart, count, isOpen, setIsOpen}) {
+function WebHeader({cart, isOpen, setIsOpen}) {
     return (
         <header className="fixed w-full z-50 bg-white">
             <div className="flex items-center justify-between w-full h-16 p-[25px] md:h-28 md:px-24">
@@ -10,7 +10,7 @@ function WebHeader({cart, count, isOpen, setIsOpen}) {
 
                 {/* Cart and User*/}
                 <div className="flex justify-end gap-3 items-center">
-                    <CartIcon cart={cart} count={count} isOpen={isOpen} setIsOpen={setIsOpen} />
+                    <CartIcon cart={cart} isOpen={isOpen} setIsOpen={setIsOpen} />
                     <img className="h-8 w-8" alt="user" src="/images/image-avatar.png" />
                 </div>
             </div>
@@ -64,7 +64,7 @@ function ToggleMenu() {
     );
 }
 
-function CartIcon({ cart, count, isOpen, setIsOpen }) {
+function CartIcon({ cart, isOpen, setIsOpen }) {
 
     function toggle() {
         setIsOpen(!isOpen);
@@ -186,7 +186,6 @@ function ProductDesc() {
 }
 
 function ImgThumbnails() {
-
 }
 
 function AddToCart({cart, setCart}) { // ADDING ITEMS
@@ -256,14 +255,14 @@ function WebFooter() {
 
 
 // App rendering
-function App({ count }) {
+function App() {
     const [cart, setCart] = React.useState([]);
     const [isOpen, setIsOpen] = React.useState(false);
 
 
     return (
         <>
-            <WebHeader cart={cart} count={count} isOpen={isOpen} setIsOpen={setIsOpen} />
+            <WebHeader cart={cart} isOpen={isOpen} setIsOpen={setIsOpen} />
 
             <div className="md:px-24">
                 <main className="pt-8 md:pt-28">
