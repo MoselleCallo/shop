@@ -65,7 +65,6 @@ function ToggleMenu() {
 }
 
 function CartIcon({ cart, count, isOpen, setIsOpen }) {
-    
 
     function toggle() {
         setIsOpen(!isOpen);
@@ -85,20 +84,20 @@ function CartIcon({ cart, count, isOpen, setIsOpen }) {
                 <div className="align-center">
                     {cart.length === 0 ?
                         (<p className="text-center text-gray-500">Your cart is empty</p>) :
-                        (cart.map((item, index) => (
+                        (cart.map((item) => (
                             <div>
                                 <div className="flex gap-1">
-                                    <img src={item.src} alt={item.alt} className="" key={index} />
+                                    <img src={item.src} alt={item.alt} className="" key={item.id} />
 
                                     <div className="">
-                                        <p className="text-gray-500" key={index}>
+                                        <p className="text-gray-500" key={item.id}>
                                             {item.name}
                                             <br />
-                                            {item.price} x {count}
+                                            ${item.price} x {item.qty}
                                         </p>
 
                                         <p className="font-bold">
-                                            {item.price * count}
+                                            {item.price * item.qty}
                                         </p>
                                     </div>
                                 </div>
@@ -191,20 +190,16 @@ function ImgThumbnails() {
 }
 
 function AddToCart({cart, setCart}) { // ADDING ITEMS
+    const [count, setCount] = React.useState(0);
+    
     const product = {
         id: 1,
         name: 'Shoes',
-        price: '$125.00',
+        price: 125.00,
+        qty: 0,
         src: '/images/image-product-1.jpg',
         alt: 'Product Image'
     };
-
-    function add() {
-        setCart([...cart, product]);
-    }
-
-    //Add to cart
-    const [count, setCount] = React.useState(0);
 
     let hasMinus = count > 0;
 
@@ -218,6 +213,12 @@ function AddToCart({cart, setCart}) { // ADDING ITEMS
         setCount(count + 1);
     }
 
+    function add() {
+        if (count === 0) return;
+        
+        setCart(prev => [...prev,{...product, quantity: count}]);
+    }
+    
     return (
         <div className="mx-[25px]">
             <div className="mt-7 px-5 py-4 bg-gray-50 flex justify-between items-center rounded-md">
@@ -255,7 +256,7 @@ function WebFooter() {
 
 
 // App rendering
-function App({cart, count}) {
+function App({ count }) {
     const [cart, setCart] = React.useState([]);
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -263,7 +264,6 @@ function App({cart, count}) {
     return (
         <>
             <WebHeader cart={cart} count={count} isOpen={isOpen} setIsOpen={setIsOpen} />
-            <ToggleMenu />
 
             <div className="md:px-24">
                 <main className="pt-8 md:pt-28">
