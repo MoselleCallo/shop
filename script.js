@@ -75,19 +75,26 @@ function CartIcon({ cart, isOpen, setIsOpen }) {
             <button className="z-50 cursor-pointer" onClick={toggle}>
                 <img alt="cart" src="/images/icon-cart.svg" />
             </button>
-
-            <div className={`fixed w-80 max-h-60 top-20 left-4 rounded-md bg-white ${isOpen ? "block" : "hidden"}`}>
+            
+            {/* Whole cart container */}
+            <div className={`fixed w-[21rem] h-64 top-[75px] left-3 rounded-md bg-white items-center ${isOpen ? "block" : "hidden"}`}>
+                {/* Cart Header */}
+                <div> 
                 <h1 className="p-4 font-bold">Cart</h1>
 
                 <hr className="pt-4" />
-
-                <div className="align-center">
+                </div>
+                
+                {/* After hr line */}
                     {cart.length === 0 ?
-                        (<p className="text-center text-gray-500">Your cart is empty</p>) :
+                    <div className="p-4 h-40 flex items-center justify-center">
+                        (<p className="text-center text-gray-500 font-bold">Your cart is empty.</p>) 
+                        </div> :
                         (cart.map((item) => (
-                            <div>
-                                <div className="flex gap-1">
-                                    <img src={item.src} alt={item.alt} className="" key={item.id} />
+                
+                <div className="p-4 h-40 flex items-center justify-center">
+                             <img className="h-10 w-10" src={item.src} alt={item.alt} className="" key={item.id} />
+                </div>
 
                                     <div className="">
                                         <p className="text-gray-500" key={item.id}>
@@ -97,19 +104,18 @@ function CartIcon({ cart, isOpen, setIsOpen }) {
                                         </p>
 
                                         <p className="font-bold">
-                                            {item.price * item.qty}
+                                            ${item.price * item.qty}
                                         </p>
                                     </div>
-                                </div>
+                            
+                </div>
 
                                 <button className="mt-4 mb-20 w-full flex items-center justify-center bg-orange-500 font-bold p-4 rounded-md">
                                     Checkout
                                 </button>
-                            </div>
                         ))
                         )
                     }
-                </div>
 
             </div>
         </>
@@ -193,7 +199,7 @@ function AddToCart({cart, setCart}) { // ADDING ITEMS
     
     const product = {
         id: 1,
-        name: 'Shoes',
+        name: 'Fall Limited  Edition Sneakers',
         price: 125.00,
         qty: 0,
         src: '/images/image-product-1.jpg',
@@ -215,7 +221,7 @@ function AddToCart({cart, setCart}) { // ADDING ITEMS
     function add() {
         if (count === 0) return;
         
-        setCart(prev => [...prev,{...product, quantity: count}]);
+        setCart(prev => [...prev,{...product, qty: count}]);
     }
     
     return (
