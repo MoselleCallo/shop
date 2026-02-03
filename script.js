@@ -1,3 +1,5 @@
+const [isClicked, setIsClicked] = React.useState(false);
+
 function WebHeader({ cart, isOpen, setIsOpen }) {
     return (
         <header className="fixed w-full z-50 bg-white">
@@ -25,6 +27,7 @@ function WebHeader({ cart, isOpen, setIsOpen }) {
 
 function ToggleMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
+    const [isBold, setIsBold] = React.useState(false);
 
     function toggle() {
         setIsOpen(!isOpen);
@@ -47,7 +50,7 @@ function ToggleMenu() {
                 <li className="py-4 text-gray-900 font-bold">
                     <a href="/"> Collections </a>
                 </li>
-                <li className="py-4 text-gray-900">
+                <li onClick={() => setIsBold(!isBold)} className={`py-4 text-gray-900 ${isBold ? "font-bold" : "font-normal"}`}>
                     <a href="/"> Men </a>
                 </li>
                 <li className="py-4 text-gray-900">
@@ -106,16 +109,20 @@ function CartIcon({ cart, isOpen, setIsOpen }) {
 
                                     <p className="font-bold">${item.price * item.qty}</p>
                                 </div>
+
+                                <img className="items-center" src="/images/icon-delete.svg" />
                             </div>
-
-
-                            <button className="mt-4 mb-20 w-full flex items-center justify-center bg-orange-500 font-bold p-4 rounded-md">
-                                Checkout
-                            </button>
                         </div>
                     ))
                     )}
-        </div >
+
+                {cart.length != 0 &&
+                    (<button onClick={() => setIsClicked(!isClicked)} className="mt-4 mb-20 w-full flex items-center justify-center bg-orange-500 font-bold p-4 rounded-md hover:opacity-80 transition-opacity duration-200"
+                    >
+                        Checkout
+                    </button>)
+                }
+            </div >
         </>
     );
 }
@@ -219,7 +226,13 @@ function AddToCart({ cart, setCart }) { // ADDING ITEMS
     function add() {
         if (count === 0) return;
 
-        setCart(prev => [...prev, { ...product, qty: count }]);
+        const existing = (cart.find(item => item.id === product.id));
+
+        if (existing) {
+            setCart(prevCart => prevCart.map(item => item.id === product.id ? { ...item, qty: item.qty + count } : item));
+        }
+        else
+            setCart(prev => [...prev, { ...product, qty: count }]);
     }
 
     return (
